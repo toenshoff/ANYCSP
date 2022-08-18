@@ -1,0 +1,33 @@
+{
+    "hidden_dim": 128,
+    "aggr_val2cst": "max",
+    "aggr_cst2val": "max",
+    "aggr_val2var": "max",
+    "sampling": "global",
+    "T_train": 40,
+    "T_val": 200,
+    "epochs": 500,
+    "epoch_steps": 1000,
+    "lr": 5e-06,
+    "lr_decay": 0.1,
+    "weight_decay": 0.0,
+    "discount": 0.75,
+    "reward": "improve",
+    "batch_size": 25,
+    "val_batch_size": 100,
+    "train_data": {
+        "KSAT": {
+            "min_k": 3,
+            "max_k": 3,
+            "min_n": 100,
+            "max_n": 100,
+            "min_alpha": 4.0,
+            "max_alpha": 5.0
+        }
+    },
+    "val_data": {
+        "FILES": {
+            "path": "data/validation/3SAT/*.cnf"
+        }
+    }
+}

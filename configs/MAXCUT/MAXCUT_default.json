@@ -1,0 +1,32 @@
+{
+    "hidden_dim": 128,
+    "aggr_val2cst": "sum",
+    "aggr_cst2val": "sum",
+    "aggr_val2var": "sum",
+    "sampling": "global",
+    "T_train": 40,
+    "T_val": 200,
+    "epochs": 500,
+    "epoch_steps": 1000,
+    "lr": 5e-06,
+    "lr_decay": 0.1,
+    "weight_decay": 0.0,
+    "discount": 0.75,
+    "reward": "improve",
+    "batch_size": 25,
+    "val_batch_size": 50,
+    "train_data": {
+        "MC_ER": {
+            "min_n": 100,
+            "max_n": 100,
+            "min_p": 0.05,
+            "max_p": 0.3,
+            "weighted_prob": 0.0
+        }
+    },
+    "val_data": {
+        "FILES": {
+            "path": "data/validation/MAXCUT/*.xml"
+        }
+    }
+}

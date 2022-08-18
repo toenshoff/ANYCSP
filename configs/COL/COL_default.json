@@ -1,0 +1,49 @@
+{
+    "hidden_dim": 128,
+    "aggr_val2cst": "max",
+    "aggr_cst2val": "max",
+    "aggr_val2var": "max",
+    "sampling": "global",
+    "T_train": 40,
+    "T_val": 200,
+    "epochs": 500,
+    "epoch_steps": 1000,
+    "lr": 5e-06,
+    "lr_decay": 0.1,
+    "weight_decay": 0.0,
+    "discount": 0.75,
+    "reward": "improve",
+    "batch_size": 25,
+    "val_batch_size": 100,
+    "train_data": {
+        "COL_ER": {
+            "min_n": 50,
+            "max_n": 50,
+            "min_p": 0.1,
+            "max_p": 0.3,
+            "min_col": 3,
+            "max_col": 10
+        },
+        "COL_BA": {
+            "min_n": 50,
+            "max_n": 50,
+            "min_m": 2,
+            "max_m": 10,
+            "min_col": 3,
+            "max_col": 10
+        },
+        "COL_GEO": {
+            "min_n": 50,
+            "max_n": 50,
+            "min_r": 0.15,
+            "max_r": 0.3,
+            "min_col": 3,
+            "max_col": 10
+        }
+    },
+    "val_data": {
+        "FILES": {
+            "path": "data/validation/COL/*.xml"
+        }
+    }
+}
