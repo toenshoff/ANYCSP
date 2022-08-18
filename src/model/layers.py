@@ -7,7 +7,7 @@ try:
     SPMM_COO_AVAIL = True
     print('Using Spmm COO')
 except ImportError:
-    MAXMUL_AVAIL = False
+    SPMM_COO_AVAIL = False
 
 
 # general aggregation method with/without sparse_coo installation
