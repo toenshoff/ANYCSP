@@ -11,7 +11,7 @@ Our validation and test data can be found under the following link:
 
 https://drive.google.com/file/d/1ZZndtrNJfiJRz18aSG_oxwIYzGyKNvrv/view?usp=sharing
 
-Download the file and extract the data in the top level directory of the repository:
+Download the file and extract the data in the top-level directory of the repository:
 ```
 unzip data.zip
 ```
@@ -22,7 +22,7 @@ cd src/spmm_coo
 python setup.py install
 cd ../..
 ```
-This is not necessary to train or evaluation models, but it will increase memory efficiency and speed up runtime.
+This is not necessary to train or evaluate models, but it will increase memory efficiency and speed up the runtime.
 
 We provide scripts for training and testing for each problem of our experiments.
 For example, to train a model for MaxCut simply call:
