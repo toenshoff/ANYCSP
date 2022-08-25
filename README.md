@@ -7,8 +7,7 @@ pip install -r requirements.txt -f https://data.pyg.org/whl/torch-1.12.0+cu113.h
 ```
 Change "+cu113" to "+cpu" if you have no gpu.
 
-
-Our validation and test data can be found under the following (anonymous) link:
+Our validation and test data can be found under the following link:
 
 https://drive.google.com/file/d/1ZZndtrNJfiJRz18aSG_oxwIYzGyKNvrv/view?usp=sharing
 
