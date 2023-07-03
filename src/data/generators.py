@@ -24,8 +24,8 @@ class KSAT_Generator:
         alpha = np.random.uniform(self.min_alpha, self.max_alpha)
         m = max(int(np.ceil(n * alpha)), 1)
         cnf = cnfgen.RandomKCNF(k, n, m)
-
-        cnf = [[(1 if sgn else -1) * int(x.split('_')[1]) for sgn, x in cls] for cls in cnf.clauses()]
+        
+        cnf = [cls for cls in cnf.clauses()]
         cnf = [np.int64(c) for c in cnf]
 
         num_var = np.max([np.abs(c).max() for c in cnf])
