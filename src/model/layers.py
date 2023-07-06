@@ -1,6 +1,8 @@
 import torch
 from torch.nn import Module, Linear, Sequential, LayerNorm, ReLU
 from torch_scatter import scatter_max, scatter_mean, scatter_sum
+from torch_geometric.utils import to_torch_coo_tensor, spmm
+from torch_sparse import SparseTensor
 
 try:
     from spmm_coo import spmm_coo_sum, spmm_coo_mean, spmm_coo_max
@@ -9,24 +11,12 @@ try:
 except ImportError:
     SPMM_COO_AVAIL = False
 
-
 # general aggregation method with/without sparse_coo installation
 def aggregate(msg, out_idx, in_idx, dim_size, aggr):
-    if aggr == 'sum':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_sum(msg, out_idx, in_idx, dim_size)
-        else:
-            rec = scatter_sum(msg[out_idx], in_idx, dim=0, dim_size=dim_size)
-    elif aggr == 'mean':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_mean(msg, out_idx, in_idx, dim_size)
-        else:
-            rec = scatter_mean(msg[out_idx], in_idx, dim=0, dim_size=dim_size)
-    elif aggr == 'max':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_max(msg, out_idx, in_idx, dim_size)[0]
-        else:
-            rec = scatter_max(msg[out_idx], in_idx, dim=0, dim_size=dim_size)[0]
+    
+    edge_index = SparseTensor(row= in_idx,  col=out_idx, sparse_sizes=(dim_size, msg.shape[0]))
+    rec = edge_index.matmul(msg, reduce=aggr)
+   
     return rec
 
 
