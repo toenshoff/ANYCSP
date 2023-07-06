@@ -1,9 +1,9 @@
 Install dependencies with conda:
 ```
-conda create --name anycsp python=3.8
+conda create --name anycsp python=3.10
 conda activate anycsp
-conda install pytorch cudatoolkit=11.3 -c pytorch
-pip install -r requirements.txt -f https://data.pyg.org/whl/torch-1.12.0+cu113.html
+conda install pytorch pytorch-cuda=11.7 -c pytorch -c nvidia
+pip install -r requirements.txt -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
 ```
 Change "+cu113" to "+cpu" if you have no gpu.
 
