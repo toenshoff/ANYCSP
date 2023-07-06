@@ -1,8 +1,8 @@
 import torch
 from torch.nn import Module, Linear, Sequential, LayerNorm, ReLU
 from torch_scatter import scatter_max, scatter_mean, scatter_sum
-from torch_geometric.utils import to_torch_coo_tensor, spmm
 from torch_sparse import SparseTensor
+
 
 try:
     from spmm_coo import spmm_coo_sum, spmm_coo_mean, spmm_coo_max
