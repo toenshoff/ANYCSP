@@ -1,24 +1,12 @@
 import torch
 from torch.nn import Module, Linear, Sequential, LayerNorm, ReLU
-from torch_scatter import scatter_max, scatter_mean, scatter_sum
-from torch_sparse import SparseTensor
+from torch_geometric.utils import scatter
 
-
-try:
-    from spmm_coo import spmm_coo_sum, spmm_coo_mean, spmm_coo_max
-    SPMM_COO_AVAIL = True
-    print('Using Spmm COO')
-except ImportError:
-    SPMM_COO_AVAIL = False
 
 # general aggregation method with/without sparse_coo installation
 def aggregate(msg, out_idx, in_idx, dim_size, aggr):
     
-    edge_index = SparseTensor(row= in_idx,  col=out_idx, sparse_sizes=(dim_size, msg.shape[0]))
-    rec = edge_index.matmul(msg, reduce=aggr)
-   
-    return rec
-
+    return scatter(msg[out_idx], in_idx, dim=0, dim_size=dim_size, reduce=aggr )
 
 class Val2Cst_Layer(Module):
 
