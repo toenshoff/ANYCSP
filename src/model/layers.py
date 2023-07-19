@@ -1,34 +1,12 @@
 import torch
 from torch.nn import Module, Linear, Sequential, LayerNorm, ReLU
-from torch_scatter import scatter_max, scatter_mean, scatter_sum
-
-try:
-    from spmm_coo import spmm_coo_sum, spmm_coo_mean, spmm_coo_max
-    SPMM_COO_AVAIL = True
-    print('Using Spmm COO')
-except ImportError:
-    SPMM_COO_AVAIL = False
+from torch_geometric.utils import scatter
 
 
 # general aggregation method with/without sparse_coo installation
 def aggregate(msg, out_idx, in_idx, dim_size, aggr):
-    if aggr == 'sum':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_sum(msg, out_idx, in_idx, dim_size)
-        else:
-            rec = scatter_sum(msg[out_idx], in_idx, dim=0, dim_size=dim_size)
-    elif aggr == 'mean':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_mean(msg, out_idx, in_idx, dim_size)
-        else:
-            rec = scatter_mean(msg[out_idx], in_idx, dim=0, dim_size=dim_size)
-    elif aggr == 'max':
-        if SPMM_COO_AVAIL:
-            rec = spmm_coo_max(msg, out_idx, in_idx, dim_size)[0]
-        else:
-            rec = scatter_max(msg[out_idx], in_idx, dim=0, dim_size=dim_size)[0]
-    return rec
-
+    
+    return scatter(msg[out_idx], in_idx, dim=0, dim_size=dim_size, reduce=aggr )
 
 class Val2Cst_Layer(Module):
 
