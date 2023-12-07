@@ -106,13 +106,8 @@ class Val2Val_Layer(Module):
 
     def forward(self, data, y_val):
         # Pool value states of the same variable
-        if self.aggr == 'max':
-            z_var = scatter_max(y_val, data.var_idx, dim=0, dim_size=data.num_var)[0]
-        elif self.aggr == 'mean':
-            z_var = scatter_mean(y_val, data.var_idx, dim=0, dim_size=data.num_var)
-        else:
-            z_var = scatter_sum(y_val, data.var_idx, dim=0, dim_size=data.num_var)
-
+        z_var = scatter(y_val, data.var_idx, dim=0, dim_size=data.num_var, reduce=self.aggr)
+        
         # Apply U_X and send result back
         z_var = self.var_enc(z_var)
         y_val += z_var[data.var_idx]
